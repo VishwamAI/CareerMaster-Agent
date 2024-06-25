@@ -1,10 +1,12 @@
 import time
 import argparse
 import json
+import os
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.chrome.service import Service
+from selenium.webdriver.chrome.options import Options
 from webdriver_manager.chrome import ChromeDriverManager
 from notifications.notifications import send_email_notification
 
@@ -71,28 +73,27 @@ def apply_to_job(driver, smtp_details, user_email):
 
 def main():
     parser = argparse.ArgumentParser(description="Automate job applications on LinkedIn.")
-    parser.add_argument("username", help="LinkedIn username")
-    parser.add_argument("password", help="LinkedIn password")
     parser.add_argument("job_title", help="Job title to search for")
     parser.add_argument("location", help="Location to search for jobs in")
-    parser.add_argument("user_email", help="User email for notifications")
-    parser.add_argument("smtp_server", help="SMTP server for sending email notifications")
-    parser.add_argument("smtp_port", type=int, help="SMTP port for sending email notifications")
-    parser.add_argument("smtp_username", help="SMTP username for sending email notifications")
-    parser.add_argument("smtp_password", help="SMTP password for sending email notifications")
     args = parser.parse_args()
 
     smtp_details = {
-        'server': args.smtp_server,
-        'port': args.smtp_port,
-        'username': args.smtp_username,
-        'password': args.smtp_password
+        'server': os.getenv('SMTP_SERVER'),
+        'port': int(os.getenv('SMTP_PORT')),
+        'username': os.getenv('SMTP_USERNAME'),
+        'password': os.getenv('SMTP_PASSWORD')
     }
 
-    driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()))
-    login_to_linkedin(driver, args.username, args.password)
+    linkedin_username = os.getenv('LINKEDIN_USERNAME')
+    linkedin_password = os.getenv('LINKEDIN_PASSWORD')
+    user_email = os.getenv('USER_EMAIL')
+
+    options = Options()
+    options.headless = True
+    driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()), options=options)
+    login_to_linkedin(driver, linkedin_username, linkedin_password)
     search_jobs(driver, args.job_title, args.location)
-    apply_to_job(driver, smtp_details, args.user_email)
+    apply_to_job(driver, smtp_details, user_email)
     driver.quit()
 
 if __name__ == "__main__":
