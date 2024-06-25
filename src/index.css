@@ -7,6 +7,8 @@
   --info-color: #17a2b8;
   --light-color: #f8f9fa;
   --dark-color: #343a40;
+  --accent-color-1: #ff5733; /* New accent color */
+  --accent-color-2: #33ff57; /* New accent color */
   --font-family-sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
   --font-family-mono: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
   --background-color: #1e1e1e;
@@ -39,6 +41,7 @@ header {
   color: var(--light-color);
   padding: 1rem;
   text-align: center;
+  font-size: 3rem; /* Increased font size for better visibility */
 }
 
 footer {
@@ -49,20 +52,22 @@ footer {
   position: fixed;
   width: 100%;
   bottom: 0;
+  font-size: 1.25rem; /* Increased font size for better visibility */
 }
 
 button {
   background-color: var(--primary-color);
   color: var(--light-color);
   border: none;
-  padding: 0.5rem 1rem;
-  font-size: 1rem;
+  padding: 0.75rem 1.5rem; /* Increased padding for better visibility */
+  font-size: 1.25rem; /* Increased font size for better visibility */
   cursor: pointer;
-  transition: background-color 0.3s ease;
+  transition: background-color 0.3s ease, transform 0.3s ease; /* Added transform transition */
 }
 
 button:hover {
   background-color: var(--dark-color);
+  transform: scale(1.05); /* Added scale transform for hover effect */
 }
 
 .container {
@@ -72,12 +77,14 @@ button:hover {
   justify-content: center;
   min-height: 100vh;
   padding: 2rem;
+  gap: 2rem; /* Added gap for better spacing */
 }
 
 h1 {
-  font-size: 2.5rem;
+  font-size: 3rem; /* Increased font size for better visibility */
   font-weight: bold;
   margin-bottom: 1rem;
+  color: var(--accent-color-1); /* Added accent color */
 }
 
 p {
@@ -90,7 +97,7 @@ p {
   flex-direction: column;
   height: 80vh;
   width: 100%;
-  max-width: 600px;
+  max-width: 800px; /* Increased max-width for better layout */
   background: linear-gradient(135deg, var(--dark-color) 0%, var(--primary-color) 100%);
   border: 1px solid var(--light-color);
   border-radius: 10px;
@@ -115,6 +122,11 @@ p {
   word-wrap: break-word;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Added shadow for depth */
   animation: fadeIn 0.5s ease; /* Added fadeIn animation */
+  transition: transform 0.3s ease; /* Added transform transition */
+}
+
+.chat-bubble:hover {
+  transform: scale(1.02); /* Added scale transform for hover effect */
 }
 
 .chat-bubble.user {
