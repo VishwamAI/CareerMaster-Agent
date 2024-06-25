@@ -42,7 +42,7 @@ const ChatComponent = () => {
                 justify={message.sender === 'user' ? 'flex-end' : 'flex-start'}
                 animation="fadeIn 0.5s"
               >
-                <Box className={`chat-bubble ${message.sender}`} p={3} bg={message.sender === 'user' ? 'blue.500' : 'gray.200'} color={message.sender === 'user' ? 'white' : 'black'} borderRadius="md" boxShadow="sm">
+                <Box className={`chat-bubble ${message.sender}`} p={4} bg={message.sender === 'user' ? 'blue.500' : 'gray.200'} color={message.sender === 'user' ? 'white' : 'black'} borderRadius="md" boxShadow="sm">
                   <Text>{message.text}</Text>
                   <Text fontSize="xs" color="gray.500">{message.timestamp}</Text>
                 </Box>
@@ -51,8 +51,8 @@ const ChatComponent = () => {
           </Box>
           <HStack className="chat-input-container" spacing={3}>
             <Image
-              src="./d8f33d13-18a7-457f-add0-8e56f894661c.jpeg"
-              alt="Profile"
+              src="./logo.png" // Replace with the actual path to the logo image
+              alt="Logo"
               boxSize="50px"
               objectFit="cover"
               borderRadius="full"
