@@ -22,10 +22,20 @@ Versatile Cybersecurity Professional with expertise in Linux Research and Develo
 - 1,138
 
 ### Professional Experience
-- Seeking roles in cybersecurity and cloud security with a strong background in Linux Research and Development, AI Research, and IoT.
+- **Founder** at VishwamAI (Jun 2024 - Present)
+  - Part-time role in Guntur, Andhra Pradesh, India.
+  - Leading the development of AI-driven solutions and managing a team of developers.
+- **Project Intern** at Edzu (Jan 2024 - Mar 2024)
+  - Remote part-time role.
+  - Worked on cybersecurity projects, focusing on automation and security protocols.
+- **Internship Trainee** at Intel Corporation (Aug 2023 - Aug 2023)
+  - Apprenticeship in Vadodara, Gujarat, India.
+  - Participated in the Phase 2 workshop, working on hardware structures involving Raspberry Pi and Groovy Pi.
+  - Developed skills in Operating Systems, IoT, and more.
 
 ### Education
-(To be filled with educational background)
+- **Bachelor of Technology (BTech)** in Cyber/Computer Forensics and Counterterrorism from Parul University (Nov 2020 - Mar 2024)
+  - Grade: 7.46
 
 ### Certifications
 - OffSec Learn One Program
@@ -41,9 +51,12 @@ Versatile Cybersecurity Professional with expertise in Linux Research and Develo
   - Active Discord & Community
   - Virtual Lab Environment Access
   - Closed Captioning Available
+- AIG - Shields Up: Cybersecurity Job Simulation from Forage
+- AWS Security Fundamentals Second Edition from Amazon Web Services (AWS)
 
 ### Projects
-(To be filled with notable projects)
+- **imagegenerating-agent**: Developed an AI-driven image generation tool as part of VishwamAI.
+- **jobsearching-agent**: Created an automated job application system to streamline the job search process.
 
 ### Contact Information
 - Email: kasinadhsarma@gmail.com
