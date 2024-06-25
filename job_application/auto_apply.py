@@ -45,6 +45,9 @@ def login_to_linkedin(driver, username, password, max_retries=3, delay=5):
         except Exception as e:
             logging.error(f"Login attempt {attempt + 1} failed: {str(e)}")
             logging.error(traceback.format_exc())
+            logging.info("Page source at the time of failure:")
+            logging.info(driver.page_source)
+            driver.save_screenshot(f"linkedin_login_failure_attempt_{attempt + 1}.png")
             if attempt < max_retries - 1:
                 time.sleep(delay)
             else:
