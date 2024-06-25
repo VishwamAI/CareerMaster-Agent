@@ -1,5 +1,6 @@
 import time
 import argparse
+import json
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
@@ -28,6 +29,10 @@ def apply_to_job(driver, smtp_details, user_email):
     for job in jobs:
         job.click()
         time.sleep(2)
+        job_details = {
+            "title": job.text,
+            "link": job.get_attribute("href")
+        }
         try:
             apply_button = driver.find_element(By.XPATH, "//button[@data-control-name='easy_apply']")
             apply_button.click()
@@ -44,6 +49,7 @@ def apply_to_job(driver, smtp_details, user_email):
                 smtp_username=smtp_details['username'],
                 smtp_password=smtp_details['password']
             )
+            job_details["status"] = "Submitted"
         except Exception as e:
             send_email_notification(
                 to_email=user_email,
@@ -54,7 +60,14 @@ def apply_to_job(driver, smtp_details, user_email):
                 smtp_username=smtp_details['username'],
                 smtp_password=smtp_details['password']
             )
-            continue
+            job_details["status"] = "Failed"
+
+        # Log the job details to applied_jobs.json
+        with open("applied_jobs.json", "r+") as file:
+            applied_jobs = json.load(file)
+            applied_jobs.append(job_details)
+            file.seek(0)
+            json.dump(applied_jobs, file, indent=4)
 
 def main():
     parser = argparse.ArgumentParser(description="Automate job applications on LinkedIn.")
