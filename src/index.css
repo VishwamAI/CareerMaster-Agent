@@ -87,7 +87,8 @@ p {
   height: 80vh;
   width: 100%;
   max-width: 600px;
-  background-color: var(--background-color);
+  background-color: var(--dark-color); /* Changed to ensure visibility */
+  border: 1px solid var(--light-color);
   border-radius: 10px;
   padding: 1rem;
   overflow-y: auto;
@@ -97,9 +98,10 @@ p {
   background-color: var(--chat-bubble-color);
   color: var(--chat-bubble-text-color);
   border-radius: var(--chat-bubble-border-radius);
-  padding: 0.5rem 1rem;
-  margin-bottom: 0.5rem;
+  padding: 1rem; /* Increased padding for better visibility */
+  margin: 0.5rem 0; /* Adjusted margin for better spacing */
   max-width: 80%;
+  word-wrap: break-word;
 }
 
 .chat-bubble.user {
