@@ -70,6 +70,16 @@ button:hover {
   transform: scale(1.05); /* Added scale transform for hover effect */
 }
 
+footer a {
+  color: var(--light-color);
+  transition: color 0.3s ease, transform 0.3s ease; /* Added transform transition */
+}
+
+footer a:hover {
+  color: var(--primary-color);
+  transform: scale(1.1); /* Added scale transform for hover effect */
+}
+
 .container {
   display: flex;
   flex-direction: column;
