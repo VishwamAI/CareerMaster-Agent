@@ -116,6 +116,12 @@ def main():
     parser.add_argument("--headless", action="store_true", help="Run browser in headless mode")
     args = parser.parse_args()
 
+    required_env_vars = ['SMTP_SERVER', 'SMTP_PORT', 'SMTP_USERNAME', 'SMTP_PASSWORD', 'LINKEDIN_USERNAME', 'LINKEDIN_PASSWORD', 'USER_EMAIL']
+    missing_vars = [var for var in required_env_vars if not os.getenv(var)]
+    if missing_vars:
+        logging.error(f"Missing required environment variables: {', '.join(missing_vars)}")
+        sys.exit(1)
+
     smtp_details = {
         'server': os.getenv('SMTP_SERVER'),
         'port': int(os.getenv('SMTP_PORT')),
