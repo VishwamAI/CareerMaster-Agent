@@ -3,7 +3,7 @@ import os
 
 def authenticate_google_cloud():
     # Check for environment variables
-    google_cloud_project_id = os.getenv('GOOGLE_CLOUD_PROJECT')
+    google_cloud_project_id = os.getenv('PROJECT')
     google_application_credentials = os.getenv('GOOGLE_APPLICATION_CREDENTIALS')
 
     if not google_cloud_project_id or not google_application_credentials:
