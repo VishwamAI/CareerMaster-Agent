@@ -2,6 +2,7 @@ import React from 'react';
 import { ChakraProvider, Box, Flex, Heading, Text, Button, Image } from '@chakra-ui/react';
 import { FaBriefcase, FaLinkedin, FaGithub } from 'react-icons/fa';
 import './App.css';
+import ChatComponent from './components/ChatComponent';
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
           <Button mt={4} colorScheme="teal" size="lg" leftIcon={<FaBriefcase />}>
             Get Started
           </Button>
+          <ChatComponent />
         </Box>
         <Box as="footer" bg="teal.500" color="white" py={4} textAlign="center">
           <Text>&copy; 2024 CareerMaster-Agent. All rights reserved.</Text>
