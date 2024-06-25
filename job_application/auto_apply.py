@@ -37,8 +37,8 @@ def login_to_linkedin(driver, username, password, max_retries=3, delay=5):
             logging.info("Clicking submit button.")
             driver.find_element(By.XPATH, "//button[@type='submit']").click()
 
-            logging.info("Waiting for Home button to confirm successful login.")
-            WebDriverWait(driver, 20).until(EC.presence_of_element_located((By.XPATH, "//a[contains(@href, '/feed') and .//li-icon[@type='home-active']]")))
+            logging.info("Waiting for profile picture to confirm successful login.")
+            WebDriverWait(driver, 20).until(EC.presence_of_element_located((By.XPATH, "//img[@class='global-nav__me-photo ember-view']")))
 
             logging.info("Successfully logged in to LinkedIn.")
             return
