@@ -42,7 +42,7 @@ const ChatComponent = () => {
         </Box>
         <HStack className="chat-input-container" spacing={3}>
           <Image
-            src="/d8f33d13-18a7-457f-add0-8e56f894661c.jpeg"
+            src="./d8f33d13-18a7-457f-add0-8e56f894661c.jpeg"
             alt="Profile"
             boxSize="50px"
             objectFit="cover"
