@@ -20,47 +20,23 @@ const ChatComponent = () => {
   };
 
   return (
-    <Box
-      borderWidth="1px"
-      borderRadius="lg"
-      overflow="hidden"
-      p={4}
-      bg="white"
-      boxShadow="md"
-      maxW="md"
-      mx="auto"
-      mt={4}
-    >
+    <Box className="chat-container">
       <VStack spacing={4} align="stretch">
-        <Box
-          borderWidth="1px"
-          borderRadius="lg"
-          overflow="hidden"
-          p={4}
-          bg="gray.50"
-          h="300px"
-          overflowY="auto"
-        >
+        <Box className="chat-container">
           {messages.map((message, index) => (
             <HStack
               key={index}
               justify={message.sender === 'user' ? 'flex-end' : 'flex-start'}
             >
-              <Box
-                bg={message.sender === 'user' ? 'blue.500' : 'gray.300'}
-                color={message.sender === 'user' ? 'white' : 'black'}
-                px={4}
-                py={2}
-                borderRadius="md"
-                maxW="80%"
-              >
+              <Box className={`chat-bubble ${message.sender}`}>
                 <Text>{message.text}</Text>
               </Box>
             </HStack>
           ))}
         </Box>
-        <HStack>
+        <HStack className="chat-input-container">
           <Input
+            className="chat-input"
             placeholder="Type your message..."
             value={input}
             onChange={(e) => setInput(e.target.value)}
@@ -68,7 +44,7 @@ const ChatComponent = () => {
               if (e.key === 'Enter') handleSend();
             }}
           />
-          <Button onClick={handleSend} colorScheme="blue">
+          <Button className="chat-send-button" onClick={handleSend}>
             Send
           </Button>
         </HStack>
