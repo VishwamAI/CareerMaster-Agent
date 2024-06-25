@@ -25,11 +25,21 @@ logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(
 def login_to_linkedin(driver, username, password, max_retries=3, delay=5):
     for attempt in range(max_retries):
         try:
+            logging.info(f"Login attempt {attempt + 1} - Navigating to LinkedIn login page.")
             driver.get("https://www.linkedin.com/login")
+
+            logging.info("Waiting for username field to be present.")
             WebDriverWait(driver, 20).until(EC.presence_of_element_located((By.ID, "username"))).send_keys(username)
+
+            logging.info("Entering password.")
             driver.find_element(By.ID, "password").send_keys(password)
+
+            logging.info("Clicking submit button.")
             driver.find_element(By.XPATH, "//button[@type='submit']").click()
+
+            logging.info("Waiting for Home button to confirm successful login.")
             WebDriverWait(driver, 20).until(EC.presence_of_element_located((By.XPATH, "//a[contains(@href, '/feed') and .//li-icon[@type='home-active']]")))
+
             logging.info("Successfully logged in to LinkedIn.")
             return
         except Exception as e:
