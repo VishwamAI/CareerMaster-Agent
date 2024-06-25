@@ -2,7 +2,12 @@ import React, { useState } from 'react';
 import { Box, Input, Button, VStack, HStack, Text } from '@chakra-ui/react';
 
 const ChatComponent = () => {
-  const [messages, setMessages] = useState([]);
+  const [messages, setMessages] = useState([
+    { text: 'Welcome to CareerMaster-Agent!', sender: 'system' },
+    { text: 'How can I assist you today?', sender: 'system' },
+    { text: 'I need help with my resume.', sender: 'user' },
+    { text: 'Sure, please upload your resume or provide your LinkedIn profile.', sender: 'system' }
+  ]);
   const [input, setInput] = useState('');
 
   const handleSend = () => {
