@@ -1,0 +1,194 @@
+:root {
+  --primary-color: #007bff;
+  --secondary-color: #6c757d;
+  --success-color: #28a745;
+  --danger-color: #dc3545;
+  --warning-color: #ffc107;
+  --info-color: #17a2b8;
+  --light-color: #f8f9fa;
+  --dark-color: #343a40;
+  --font-family-sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+  --font-family-mono: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
+  --background-color: #1e1e1e;
+  --chat-bubble-color: #2a2a2a;
+  --chat-bubble-text-color: #ffffff;
+  --chat-bubble-border-radius: 15px;
+  --chat-input-background: #2a2a2a;
+  --chat-input-text-color: #ffffff;
+  --chat-input-border-radius: 10px;
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-family-sans);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background-color: var(--background-color);
+  background-image: url('../public/logo512.png');
+  background-size: cover;
+  background-repeat: no-repeat;
+  color: var(--light-color);
+}
+
+code {
+  font-family: var(--font-family-mono);
+}
+
+header {
+  background-color: var(--primary-color);
+  color: var(--light-color);
+  padding: 1rem;
+  text-align: center;
+}
+
+footer {
+  background-color: var(--secondary-color);
+  color: var(--light-color);
+  padding: 1rem;
+  text-align: center;
+  position: fixed;
+  width: 100%;
+  bottom: 0;
+}
+
+button {
+  background-color: var(--primary-color);
+  color: var(--light-color);
+  border: none;
+  padding: 0.5rem 1rem;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+button:hover {
+  background-color: var(--dark-color);
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  padding: 2rem;
+}
+
+h1 {
+  font-size: 2.5rem;
+  font-weight: bold;
+  margin-bottom: 1rem;
+}
+
+p {
+  font-size: 1.25rem;
+  margin-bottom: 2rem;
+}
+
+.chat-container {
+  display: flex;
+  flex-direction: column;
+  height: 80vh;
+  width: 100%;
+  max-width: 600px;
+  background: linear-gradient(135deg, var(--dark-color) 0%, var(--primary-color) 100%);
+  border: 1px solid var(--light-color);
+  border-radius: 10px;
+  padding: 1rem;
+  overflow-y: auto;
+}
+
+.chat-messages {
+  display: flex;
+  flex-direction: column;
+  padding: 1rem;
+  overflow-y: auto;
+}
+
+.chat-bubble {
+  background-color: var(--chat-bubble-color);
+  color: var(--chat-bubble-text-color);
+  border-radius: var(--chat-bubble-border-radius);
+  padding: 1rem; /* Increased padding for better visibility */
+  margin: 0.5rem 0; /* Adjusted margin for better spacing */
+  max-width: 80%;
+  word-wrap: break-word;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Added shadow for depth */
+  animation: fadeIn 0.5s ease; /* Added fadeIn animation */
+}
+
+.chat-bubble.user {
+  align-self: flex-end;
+  background-color: var(--primary-color);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Added shadow for depth */
+}
+
+.chat-bubble.system {
+  align-self: flex-start;
+}
+
+.chat-input-container {
+  display: flex;
+  align-items: center;
+  padding: 0.5rem;
+  background-color: var(--chat-input-background);
+  border-radius: var(--chat-input-border-radius);
+  margin-top: 1rem;
+}
+
+.chat-input {
+  flex: 1;
+  background-color: var(--chat-input-background);
+  color: var(--chat-input-text-color);
+  border: none;
+  padding: 0.5rem;
+  border-radius: var(--chat-input-border-radius);
+}
+
+.chat-input::placeholder {
+  color: var(--chat-input-text-color);
+  display: flex;
+  align-items: center;
+  height: 100%;
+}
+
+.chat-send-button {
+  background-color: var(--success-color);
+  color: var(--light-color);
+  border: none;
+  padding: 0.5rem 1rem;
+  margin-left: 0.5rem;
+  border-radius: var(--chat-input-border-radius);
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.chat-send-button:hover {
+  background-color: var(--dark-color);
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (max-width: 768px) {
+  h1 {
+    font-size: 2rem;
+  }
+
+  p {
+    font-size: 1rem;
+  }
+
+  button {
+    font-size: 0.875rem;
+    padding: 0.5rem;
+  }
+}
