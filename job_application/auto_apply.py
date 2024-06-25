@@ -16,12 +16,22 @@ from notifications.notifications import send_email_notification
 # Set up logging
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 
-def login_to_linkedin(driver, username, password):
-    driver.get("https://www.linkedin.com/login")
-    WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.ID, "username"))).send_keys(username)
-    driver.find_element(By.ID, "password").send_keys(password)
-    driver.find_element(By.XPATH, "//button[@type='submit']").click()
-    WebDriverWait(driver, 10).until(EC.url_contains("feed"))
+def login_to_linkedin(driver, username, password, max_retries=3, delay=5):
+    for attempt in range(max_retries):
+        try:
+            driver.get("https://www.linkedin.com/login")
+            WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.ID, "username"))).send_keys(username)
+            driver.find_element(By.ID, "password").send_keys(password)
+            driver.find_element(By.XPATH, "//button[@type='submit']").click()
+            WebDriverWait(driver, 10).until(EC.url_contains("feed"))
+            logging.info("Successfully logged in to LinkedIn.")
+            return
+        except Exception as e:
+            logging.error(f"Login attempt {attempt + 1} failed: {str(e)}")
+            if attempt < max_retries - 1:
+                time.sleep(delay)
+            else:
+                raise Exception("Failed to log in to LinkedIn after multiple attempts.")
 
 def search_jobs(driver, job_title, location):
     driver.get("https://www.linkedin.com/jobs/")
