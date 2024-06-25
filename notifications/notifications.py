@@ -1,7 +1,11 @@
 import smtplib
+import logging
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 from smtplib import SMTPException, SMTPAuthenticationError, SMTPConnectError, SMTPHeloError, SMTPSenderRefused, SMTPRecipientsRefused, SMTPDataError
+
+# Configure logging
+logging.basicConfig(level=logging.INFO)
 
 def send_email_notification(to_email, subject, message, smtp_server, smtp_port, smtp_username, smtp_password):
     try:
@@ -22,24 +26,24 @@ def send_email_notification(to_email, subject, message, smtp_server, smtp_port, 
         server.sendmail(smtp_username, to_email, text)
         server.quit()
 
-        print(f"Email sent successfully to {to_email}")
+        logging.info(f"Email sent successfully to {to_email}")
 
     except SMTPAuthenticationError:
-        print(f"Failed to send email to {to_email}. Error: Authentication failed.")
+        logging.info(f"Failed to send email to {to_email}. Error: Authentication failed.")
     except SMTPConnectError:
-        print(f"Failed to send email to {to_email}. Error: Unable to connect to the SMTP server.")
+        logging.info(f"Failed to send email to {to_email}. Error: Unable to connect to the SMTP server.")
     except SMTPHeloError:
-        print(f"Failed to send email to {to_email}. Error: The server refused the HELO message.")
+        logging.info(f"Failed to send email to {to_email}. Error: The server refused the HELO message.")
     except SMTPSenderRefused:
-        print(f"Failed to send email to {to_email}. Error: The server refused the sender address.")
+        logging.info(f"Failed to send email to {to_email}. Error: The server refused the sender address.")
     except SMTPRecipientsRefused:
-        print(f"Failed to send email to {to_email}. Error: The server refused the recipient address.")
+        logging.info(f"Failed to send email to {to_email}. Error: The server refused the recipient address.")
     except SMTPDataError:
-        print(f"Failed to send email to {to_email}. Error: The server replied with an unexpected error code.")
+        logging.info(f"Failed to send email to {to_email}. Error: The server replied with an unexpected error code.")
     except SMTPException as e:
-        print(f"Failed to send email to {to_email}. SMTP error occurred: {str(e)}")
+        logging.info(f"Failed to send email to {to_email}. SMTP error occurred: {str(e)}")
     except Exception as e:
-        print(f"Failed to send email to {to_email}. Error: {str(e)}")
+        logging.info(f"Failed to send email to {to_email}. Error: {str(e)}")
 
 if __name__ == "__main__":
     # Example usage
