@@ -94,6 +94,13 @@ p {
   overflow-y: auto;
 }
 
+.chat-messages {
+  display: flex;
+  flex-direction: column;
+  padding: 1rem;
+  overflow-y: auto;
+}
+
 .chat-bubble {
   background-color: var(--chat-bubble-color);
   color: var(--chat-bubble-text-color);

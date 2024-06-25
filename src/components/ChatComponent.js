@@ -22,7 +22,7 @@ const ChatComponent = () => {
   return (
     <Box className="chat-container">
       <VStack spacing={4} align="stretch">
-        <Box className="chat-container">
+        <Box className="chat-messages">
           {messages.map((message, index) => (
             <HStack
               key={index}
