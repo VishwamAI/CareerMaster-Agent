@@ -24,6 +24,9 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   background-color: var(--background-color);
+  background-image: url('../public/logo512.png');
+  background-size: cover;
+  background-repeat: no-repeat;
   color: var(--light-color);
 }
 
@@ -73,6 +76,7 @@ button:hover {
 
 h1 {
   font-size: 2.5rem;
+  font-weight: bold;
   margin-bottom: 1rem;
 }
 
@@ -143,10 +147,13 @@ p {
 
 .chat-input::placeholder {
   color: var(--chat-input-text-color);
+  display: flex;
+  align-items: center;
+  height: 100%;
 }
 
 .chat-send-button {
-  background-color: var(--primary-color);
+  background-color: var(--success-color);
   color: var(--light-color);
   border: none;
   padding: 0.5rem 1rem;
