@@ -5,6 +5,7 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.chrome.service import Service
 from webdriver_manager.chrome import ChromeDriverManager
+from notifications.notifications import send_email_notification
 
 def login_to_linkedin(driver, username, password):
     driver.get("https://www.linkedin.com/login")
@@ -22,7 +23,7 @@ def search_jobs(driver, job_title, location):
     driver.find_element(By.XPATH, "//button[@aria-label='Search']").click()
     time.sleep(2)
 
-def apply_to_job(driver):
+def apply_to_job(driver, smtp_details, user_email):
     jobs = driver.find_elements(By.XPATH, "//a[@data-control-name='job_card']")
     for job in jobs:
         job.click()
@@ -34,7 +35,25 @@ def apply_to_job(driver):
             submit_button = driver.find_element(By.XPATH, "//button[@aria-label='Submit application']")
             submit_button.click()
             time.sleep(2)
-        except:
+            send_email_notification(
+                to_email=user_email,
+                subject="Job Application Submitted",
+                message="Your job application has been successfully submitted.",
+                smtp_server=smtp_details['server'],
+                smtp_port=smtp_details['port'],
+                smtp_username=smtp_details['username'],
+                smtp_password=smtp_details['password']
+            )
+        except Exception as e:
+            send_email_notification(
+                to_email=user_email,
+                subject="Job Application Failed",
+                message=f"Failed to submit job application. Error: {str(e)}",
+                smtp_server=smtp_details['server'],
+                smtp_port=smtp_details['port'],
+                smtp_username=smtp_details['username'],
+                smtp_password=smtp_details['password']
+            )
             continue
 
 def main():
@@ -43,12 +62,24 @@ def main():
     parser.add_argument("password", help="LinkedIn password")
     parser.add_argument("job_title", help="Job title to search for")
     parser.add_argument("location", help="Location to search for jobs in")
+    parser.add_argument("user_email", help="User email for notifications")
+    parser.add_argument("smtp_server", help="SMTP server for sending email notifications")
+    parser.add_argument("smtp_port", type=int, help="SMTP port for sending email notifications")
+    parser.add_argument("smtp_username", help="SMTP username for sending email notifications")
+    parser.add_argument("smtp_password", help="SMTP password for sending email notifications")
     args = parser.parse_args()
+
+    smtp_details = {
+        'server': args.smtp_server,
+        'port': args.smtp_port,
+        'username': args.smtp_username,
+        'password': args.smtp_password
+    }
 
     driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()))
     login_to_linkedin(driver, args.username, args.password)
     search_jobs(driver, args.job_title, args.location)
-    apply_to_job(driver)
+    apply_to_job(driver, smtp_details, args.user_email)
     driver.quit()
 
 if __name__ == "__main__":
