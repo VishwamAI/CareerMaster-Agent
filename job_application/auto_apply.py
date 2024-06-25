@@ -29,7 +29,7 @@ def login_to_linkedin(driver, username, password, max_retries=3, delay=5):
             WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.ID, "username"))).send_keys(username)
             driver.find_element(By.ID, "password").send_keys(password)
             driver.find_element(By.XPATH, "//button[@type='submit']").click()
-            WebDriverWait(driver, 10).until(EC.url_contains("feed"))
+            WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.XPATH, "//span[@title='Home']")))
             logging.info("Successfully logged in to LinkedIn.")
             return
         except Exception as e:
@@ -130,11 +130,14 @@ def main():
     user_email = os.getenv('USER_EMAIL')
 
     options = Options()
-    if args.headless:
-        options.headless = True
+    options.add_argument("--start-maximized")
     options.add_argument("--no-sandbox")
     options.add_argument("--disable-dev-shm-usage")
     options.add_argument("--disable-gpu")
+    options.add_argument("--remote-debugging-port=9222")
+    options.add_argument("--user-data-dir=/tmp/chrome-user-data")
+    options.add_argument("--log-level=0")
+    options.add_argument("--v=1")
     driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()), options=options)
     try:
         login_to_linkedin(driver, linkedin_username, linkedin_password)
