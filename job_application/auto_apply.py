@@ -33,12 +33,22 @@ def login_to_linkedin(driver, username, password, max_retries=3, delay=5):
             else:
                 raise Exception("Failed to log in to LinkedIn after multiple attempts.")
 
-def search_jobs(driver, job_title, location):
-    driver.get("https://www.linkedin.com/jobs/")
-    WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.XPATH, "//input[@placeholder='Search jobs']"))).send_keys(job_title)
-    driver.find_element(By.XPATH, "//input[@placeholder='Search location']").send_keys(location)
-    driver.find_element(By.XPATH, "//button[@aria-label='Search']").click()
-    WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.XPATH, "//ul[contains(@class, 'jobs-search__results-list')]")))
+def search_jobs(driver, job_title, location, max_retries=3, delay=5):
+    for attempt in range(max_retries):
+        try:
+            driver.get("https://www.linkedin.com/jobs/")
+            WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.XPATH, "//input[@placeholder='Search jobs']"))).send_keys(job_title)
+            driver.find_element(By.XPATH, "//input[@placeholder='Search location']").send_keys(location)
+            driver.find_element(By.XPATH, "//button[@aria-label='Search']").click()
+            WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.XPATH, "//ul[contains(@class, 'jobs-search__results-list')]")))
+            logging.info("Successfully searched for jobs.")
+            return
+        except Exception as e:
+            logging.error(f"Job search attempt {attempt + 1} failed: {str(e)}")
+            if attempt < max_retries - 1:
+                time.sleep(delay)
+            else:
+                raise Exception("Failed to search for jobs after multiple attempts.")
 
 def apply_to_job(driver, smtp_details, user_email):
     jobs = driver.find_elements(By.XPATH, "//a[@data-control-name='job_card']")
