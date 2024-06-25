@@ -1,5 +1,6 @@
 from bs4 import BeautifulSoup
 import json
+from docx import Document
 
 def parse_linkedin_profile(html_content):
     """
@@ -90,6 +91,50 @@ def parse_linkedin_profile(html_content):
 
     return profile_data
 
+def format_resume(profile_data, output_file):
+    """
+    Format the extracted profile data into a professional resume layout and save it as a DOCX file.
+
+    Args:
+        profile_data (dict): Structured profile data.
+        output_file (str): Path to the output DOCX file.
+    """
+    document = Document()
+
+    # Add name and headline
+    document.add_heading(profile_data['name'], level=1)
+    document.add_paragraph(profile_data['headline'])
+
+    # Add summary
+    document.add_heading('Summary', level=2)
+    document.add_paragraph(profile_data['summary'])
+
+    # Add experience
+    document.add_heading('Experience', level=2)
+    for exp in profile_data['experience']:
+        document.add_heading(exp['title'], level=3)
+        document.add_paragraph(f"{exp['company']} - {exp['date_range']}")
+        document.add_paragraph(exp['location'])
+
+    # Add education
+    document.add_heading('Education', level=2)
+    for edu in profile_data['education']:
+        document.add_heading(edu['school'], level=3)
+        document.add_paragraph(f"{edu['degree']} in {edu['field_of_study']} - {edu['date_range']}")
+
+    # Add skills
+    document.add_heading('Skills', level=2)
+    document.add_paragraph(', '.join(profile_data['skills']))
+
+    # Add certifications
+    document.add_heading('Certifications', level=2)
+    for cert in profile_data['certifications']:
+        document.add_heading(cert['cert_name'], level=3)
+        document.add_paragraph(f"Issued by {cert['issuing_organization']} - {cert['date_range']}")
+
+    # Save the document
+    document.save(output_file)
+
 # Example usage
 if __name__ == "__main__":
     with open('linkedin_profile.html', 'r') as file:
@@ -97,3 +142,5 @@ if __name__ == "__main__":
 
     profile_data = parse_linkedin_profile(html_content)
     print(json.dumps(profile_data, indent=4))
+
+    format_resume(profile_data, 'resume.docx')
