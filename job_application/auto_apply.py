@@ -134,7 +134,6 @@ def main():
         options.headless = True
     options.add_argument("--no-sandbox")
     options.add_argument("--disable-dev-shm-usage")
-    options.add_argument("--remote-debugging-port=9222")
     driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()), options=options)
     try:
         login_to_linkedin(driver, linkedin_username, linkedin_password)
