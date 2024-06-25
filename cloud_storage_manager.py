@@ -49,6 +49,17 @@ def list_files(bucket_name):
     except Exception as e:
         print(f"Error listing files in bucket {bucket_name}: {e}")
 
+def delete_file(bucket_name, blob_name):
+    """Deletes a file from the bucket."""
+    try:
+        client = storage.Client()
+        bucket = client.bucket(bucket_name)
+        blob = bucket.blob(blob_name)
+        blob.delete()
+        print(f"Blob {blob_name} deleted from bucket {bucket_name}.")
+    except Exception as e:
+        print(f"Error deleting blob {blob_name} from bucket {bucket_name}: {e}")
+
 if __name__ == '__main__':
     # Example usage
     bucket_name = 'your-bucket-name'
@@ -56,3 +67,4 @@ if __name__ == '__main__':
     upload_file(bucket_name, 'path/to/local/file', 'destination_blob_name')
     download_file(bucket_name, 'source_blob_name', 'path/to/local/destination/file')
     list_files(bucket_name)
+    delete_file(bucket_name, 'blob_name_to_delete')
