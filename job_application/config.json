@@ -1,0 +1,13 @@
+{
+    "smtp_details": {
+        "server": "your_smtp_server",
+        "port": 587,
+        "username": "your_smtp_username",
+        "password": "your_smtp_password"
+    },
+    "linkedin_credentials": {
+        "username": "your_linkedin_username",
+        "password": "your_linkedin_password"
+    },
+    "user_email": "your_email@example.com"
+}

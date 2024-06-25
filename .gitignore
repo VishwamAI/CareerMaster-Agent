@@ -21,3 +21,43 @@
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Distribution / packaging
+.Python
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+*.egg-info/
+dist/
+build/
+
+# GitHub Enterprise package files
+dependencies-3.13.0-gce+(1).tar.gz
+dependencies-3.13.0-gce.tar.gz
+github-enterprise-gce-3.13.0.pkg
+
+# Logs
+*.log
+
+# OS generated files
+.DS_Store
+Thumbs.db
+
+# Google Cloud service account JSON key file
+job-searching-agent-dbe1f5a8dada.json
+job-searching-agent-ae9891a9fc98.json
+
+# Untracked directories related to GitHub Enterprise package
+credits/
+docker-image-licenses/
+enterprise-manage/
+enterpriseutils/
+focal/
+ghe-utility-scripts/
