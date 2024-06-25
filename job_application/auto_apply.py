@@ -2,35 +2,39 @@ import time
 import argparse
 import json
 import os
+import logging
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.chrome.options import Options
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
 from webdriver_manager.chrome import ChromeDriverManager
 from notifications.notifications import send_email_notification
 
+# Set up logging
+logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
+
 def login_to_linkedin(driver, username, password):
     driver.get("https://www.linkedin.com/login")
-    time.sleep(2)
-    driver.find_element(By.ID, "username").send_keys(username)
+    WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.ID, "username"))).send_keys(username)
     driver.find_element(By.ID, "password").send_keys(password)
     driver.find_element(By.XPATH, "//button[@type='submit']").click()
-    time.sleep(2)
+    WebDriverWait(driver, 10).until(EC.url_contains("feed"))
 
 def search_jobs(driver, job_title, location):
     driver.get("https://www.linkedin.com/jobs/")
-    time.sleep(2)
-    driver.find_element(By.XPATH, "//input[@placeholder='Search jobs']").send_keys(job_title)
+    WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.XPATH, "//input[@placeholder='Search jobs']"))).send_keys(job_title)
     driver.find_element(By.XPATH, "//input[@placeholder='Search location']").send_keys(location)
     driver.find_element(By.XPATH, "//button[@aria-label='Search']").click()
-    time.sleep(2)
+    WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.XPATH, "//ul[contains(@class, 'jobs-search__results-list')]")))
 
 def apply_to_job(driver, smtp_details, user_email):
     jobs = driver.find_elements(By.XPATH, "//a[@data-control-name='job_card']")
     for job in jobs:
         job.click()
-        time.sleep(2)
+        WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.XPATH, "//button[@data-control-name='easy_apply']")))
         job_details = {
             "title": job.text,
             "link": job.get_attribute("href")
@@ -38,10 +42,8 @@ def apply_to_job(driver, smtp_details, user_email):
         try:
             apply_button = driver.find_element(By.XPATH, "//button[@data-control-name='easy_apply']")
             apply_button.click()
-            time.sleep(2)
-            submit_button = driver.find_element(By.XPATH, "//button[@aria-label='Submit application']")
-            submit_button.click()
-            time.sleep(2)
+            WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.XPATH, "//button[@aria-label='Submit application']"))).click()
+            WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.XPATH, "//div[contains(text(), 'application submitted')]")))
             send_email_notification(
                 to_email=user_email,
                 subject="Job Application Submitted",
@@ -52,6 +54,7 @@ def apply_to_job(driver, smtp_details, user_email):
                 smtp_password=smtp_details['password']
             )
             job_details["status"] = "Submitted"
+            logging.info(f"Successfully applied to job: {job_details['title']}")
         except Exception as e:
             send_email_notification(
                 to_email=user_email,
@@ -63,6 +66,7 @@ def apply_to_job(driver, smtp_details, user_email):
                 smtp_password=smtp_details['password']
             )
             job_details["status"] = "Failed"
+            logging.error(f"Failed to apply to job: {job_details['title']}. Error: {str(e)}")
 
         # Log the job details to applied_jobs.json
         with open("applied_jobs.json", "r+") as file:
@@ -75,6 +79,7 @@ def main():
     parser = argparse.ArgumentParser(description="Automate job applications on LinkedIn.")
     parser.add_argument("job_title", help="Job title to search for")
     parser.add_argument("location", help="Location to search for jobs in")
+    parser.add_argument("--headless", action="store_true", help="Run browser in headless mode")
     args = parser.parse_args()
 
     smtp_details = {
@@ -89,12 +94,15 @@ def main():
     user_email = os.getenv('USER_EMAIL')
 
     options = Options()
-    options.headless = True
+    if args.headless:
+        options.headless = True
     driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()), options=options)
-    login_to_linkedin(driver, linkedin_username, linkedin_password)
-    search_jobs(driver, args.job_title, args.location)
-    apply_to_job(driver, smtp_details, user_email)
-    driver.quit()
+    try:
+        login_to_linkedin(driver, linkedin_username, linkedin_password)
+        search_jobs(driver, args.job_title, args.location)
+        apply_to_job(driver, smtp_details, user_email)
+    finally:
+        driver.quit()
 
 if __name__ == "__main__":
     main()
