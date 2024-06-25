@@ -48,6 +48,13 @@ def login_to_linkedin(driver, username, password, max_retries=3, delay=5):
             logging.info("Page source at the time of failure:")
             logging.info(driver.page_source)
             driver.save_screenshot(f"linkedin_login_failure_attempt_{attempt + 1}.png")
+
+            # Check for CAPTCHA challenge
+            if "Security Verification | LinkedIn" in driver.title:
+                logging.info("CAPTCHA challenge detected. Please solve the CAPTCHA manually.")
+                input("Press Enter after solving the CAPTCHA to continue...")
+                continue
+
             if attempt < max_retries - 1:
                 time.sleep(delay)
             else:
