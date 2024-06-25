@@ -16,6 +16,8 @@ from selenium.webdriver.support import expected_conditions as EC
 from webdriver_manager.chrome import ChromeDriverManager
 from notifications.notifications import send_email_notification
 import traceback
+from dotenv import load_dotenv
+load_dotenv()
 
 # Set up logging
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
@@ -116,12 +118,6 @@ def main():
     parser.add_argument("--headless", action="store_true", help="Run browser in headless mode")
     args = parser.parse_args()
 
-    required_env_vars = ['SMTP_SERVER', 'SMTP_PORT', 'SMTP_USERNAME', 'SMTP_PASSWORD', 'LINKEDIN_USERNAME', 'LINKEDIN_PASSWORD', 'USER_EMAIL']
-    missing_vars = [var for var in required_env_vars if not os.getenv(var)]
-    if missing_vars:
-        logging.error(f"Missing required environment variables: {', '.join(missing_vars)}")
-        sys.exit(1)
-
     smtp_details = {
         'server': os.getenv('SMTP_SERVER'),
         'port': int(os.getenv('SMTP_PORT')),
@@ -136,6 +132,9 @@ def main():
     options = Options()
     if args.headless:
         options.headless = True
+    options.add_argument("--no-sandbox")
+    options.add_argument("--disable-dev-shm-usage")
+    options.add_argument("--remote-debugging-port=9222")
     driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()), options=options)
     try:
         login_to_linkedin(driver, linkedin_username, linkedin_password)
