@@ -26,10 +26,10 @@ def login_to_linkedin(driver, username, password, max_retries=3, delay=5):
     for attempt in range(max_retries):
         try:
             driver.get("https://www.linkedin.com/login")
-            WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.ID, "username"))).send_keys(username)
+            WebDriverWait(driver, 20).until(EC.presence_of_element_located((By.ID, "username"))).send_keys(username)
             driver.find_element(By.ID, "password").send_keys(password)
             driver.find_element(By.XPATH, "//button[@type='submit']").click()
-            WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.XPATH, "//span[@title='Home']")))
+            WebDriverWait(driver, 20).until(EC.presence_of_element_located((By.XPATH, "//a[contains(@href, '/feed') and .//li-icon[@type='home-active']]")))
             logging.info("Successfully logged in to LinkedIn.")
             return
         except Exception as e:
