@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Box, Input, Button, VStack, HStack, Text } from '@chakra-ui/react';
+import { Box, Input, Button, VStack, HStack, Text, Image } from '@chakra-ui/react';
 
 const ChatComponent = () => {
   const [messages, setMessages] = useState([
@@ -40,6 +40,13 @@ const ChatComponent = () => {
           ))}
         </Box>
         <HStack className="chat-input-container">
+          <Image
+            src="/d8f33d13-18a7-457f-add0-8e56f894661c.jpeg"
+            alt="Profile"
+            boxSize="150px"
+            objectFit="cover"
+            borderRadius="full"
+          />
           <Input
             className="chat-input"
             placeholder="Type your message..."
