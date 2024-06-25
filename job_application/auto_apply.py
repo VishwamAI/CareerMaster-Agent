@@ -113,23 +113,19 @@ def main():
     parser.add_argument("--headless", action="store_true", help="Run browser in headless mode")
     args = parser.parse_args()
 
-    smtp_details = {
-        'server': os.getenv('SMTP_SERVER'),
-        'port': int(os.getenv('SMTP_PORT')),
-        'username': os.getenv('SMTP_USERNAME'),
-        'password': os.getenv('SMTP_PASSWORD')
-    }
+    with open("config.json", "r") as config_file:
+        config = json.load(config_file)
 
-    linkedin_username = os.getenv('LINKEDIN_USERNAME')
-    linkedin_password = os.getenv('LINKEDIN_PASSWORD')
-    user_email = os.getenv('USER_EMAIL')
+    smtp_details = config['smtp_details']
+    linkedin_credentials = config['linkedin_credentials']
+    user_email = config['user_email']
 
     options = Options()
     if args.headless:
         options.headless = True
     driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()), options=options)
     try:
-        login_to_linkedin(driver, linkedin_username, linkedin_password)
+        login_to_linkedin(driver, linkedin_credentials['username'], linkedin_credentials['password'])
         search_jobs(driver, args.job_title, args.location)
         apply_to_job(driver, smtp_details, user_email)
     finally:
