@@ -3,7 +3,6 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@babel/plugin-transform-private-property-in-object": "^7.24.7",
     "@chakra-ui/react": "^2.8.2",
     "@emotion/react": "^11.11.4",
     "@emotion/styled": "^11.11.5",
@@ -41,5 +40,9 @@
       "last 1 safari version"
     ]
   },
-  "homepage": "http://resilient-buttercream-ba9069.netlify.app"
+  "homepage": "http://resilient-buttercream-ba9069.netlify.app",
+  "devDependencies": {
+    "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
+    "@babel/plugin-transform-private-property-in-object": "^7.24.7"
+  }
 }
