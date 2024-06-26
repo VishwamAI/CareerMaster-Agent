@@ -19,19 +19,25 @@ Versatile Cybersecurity Professional with expertise in Linux Research and Develo
 - 218
 
 ### Post Impressions
-- 1,138
+- 1,142
 
 ### Professional Experience
 - **Founder** at VishwamAI (Jun 2024 - Present)
   - Part-time role in Guntur, Andhra Pradesh, India.
   - Leading the development of AI-driven solutions and managing a team of developers.
+  - Working on experiments with auto-applying jobs, AGI development, and using technology to build completely free agents as a non-profit open-source initiative.
 - **Project Intern** at Edzu (Jan 2024 - Mar 2024)
   - Remote part-time role.
   - Worked on cybersecurity projects, focusing on automation and security protocols.
-- **Internship Trainee** at Intel Corporation (Aug 2023 - Aug 2023)
-  - Apprenticeship in Vadodara, Gujarat, India.
-  - Participated in the Phase 2 workshop, working on hardware structures involving Raspberry Pi and Groovy Pi.
-  - Developed skills in Operating Systems, IoT, and more.
+- **Internship Trainee** at Intel Corporation (Dec 2023 - Jan 2024)
+  - Role focused on vulnerability assessment and cybersecurity.
+  - Developed skills in operating systems and IoT.
+- **Apprenticeship** at TryHackMe (Sep 2022 - Feb 2023)
+  - Online role where skills in penetration testing and red team exercises were enhanced.
+  - Developed a portfolio of work available at TryHackMe's platform.
+- **Summer Trainee** at Intel Corporation (May 2023 - Jul 2023)
+  - Remote role based in Bengaluru, Karnataka, India.
+  - Worked on deep learning projects for road object detection using Faster R-CNN model with ResNet-50 backbone.
 
 ### Education
 - **Bachelor of Technology (BTech)** in Cyber/Computer Forensics and Counterterrorism from Parul University (Nov 2020 - Mar 2024)
