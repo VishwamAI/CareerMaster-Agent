@@ -25,8 +25,8 @@ body {
   font-family: var(--font-family-sans);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background-color: var(--background-color);
-  color: var(--light-color);
+  background-color: #f0f2f5; /* Updated background color */
+  color: #333; /* Updated text color */
 }
 
 code {
@@ -36,20 +36,24 @@ code {
 header {
   background-color: var(--primary-color);
   color: var(--light-color);
-  padding: 1rem;
+  padding: 1.5rem; /* Increased padding */
   text-align: center;
   font-size: 3rem; /* Increased font size for better visibility */
+  border-radius: 10px; /* Added border-radius */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Added box-shadow */
 }
 
 footer {
   background-color: var(--secondary-color);
   color: var(--light-color);
-  padding: 1rem;
+  padding: 1.5rem; /* Increased padding */
   text-align: center;
   position: fixed;
   width: 100%;
   bottom: 0;
   font-size: 1.25rem; /* Increased font size for better visibility */
+  border-radius: 10px; /* Added border-radius */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Added box-shadow */
 }
 
 button {
@@ -60,8 +64,8 @@ button {
   font-size: 1.25rem; /* Increased font size for better visibility */
   cursor: pointer;
   transition: background-color 0.3s ease, transform 0.3s ease; /* Added transform transition */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Added box-shadow */
 }
-
 button:hover {
   background-color: var(--dark-color);
   transform: scale(1.05); /* Added scale transform for hover effect */
@@ -171,6 +175,7 @@ footer a:hover {
   border-radius: 10px;
   padding: 1rem;
   overflow-y: auto;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Added box-shadow */
 }
 
 .chat-messages {
