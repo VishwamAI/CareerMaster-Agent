@@ -147,6 +147,7 @@ def main():
     user_email = os.getenv('USER_EMAIL')
 
     options = Options()
+    options.add_argument("--headless")
     options.add_argument("--start-maximized")
     options.add_argument("--no-sandbox")
     options.add_argument("--disable-dev-shm-usage")
@@ -155,6 +156,9 @@ def main():
     options.add_argument("--user-data-dir=/tmp/chrome-user-data")
     options.add_argument("--log-level=0")
     options.add_argument("--v=1")
+    options.add_argument("--disable-software-rasterizer")
+    options.add_argument("--display=:100")  # Ensure the script uses the correct Xvfb display
+
     driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()), options=options)
     try:
         # login_to_linkedin(driver, linkedin_username, linkedin_password)
