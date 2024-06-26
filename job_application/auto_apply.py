@@ -92,6 +92,8 @@ def apply_to_job(driver, smtp_details, user_email, max_retries=3, delay=5):
         }
         for attempt in range(max_retries):
             try:
+                logging.info(f"Sending email notification for job application: {job_details['title']}")
+                logging.info(f"SMTP details: server={smtp_details['server']}, port={smtp_details['port']}, username={smtp_details['username']}")
                 # Simulate successful application
                 send_email_notification(
                     to_email=user_email,
@@ -111,6 +113,7 @@ def apply_to_job(driver, smtp_details, user_email, max_retries=3, delay=5):
                 if attempt < max_retries - 1:
                     time.sleep(delay)
                 else:
+                    logging.info(f"Sending failure email notification for job application: {job_details['title']}")
                     send_email_notification(
                         to_email=user_email,
                         subject="Job Application Failed",
@@ -132,12 +135,6 @@ def apply_to_job(driver, smtp_details, user_email, max_retries=3, delay=5):
             json.dump(applied_jobs, file, indent=4)
 
 def main():
-    parser = argparse.ArgumentParser(description="Automate job applications on LinkedIn.")
-    parser.add_argument("job_title", help="Job title to search for")
-    parser.add_argument("location", help="Location to search for jobs in")
-    parser.add_argument("--headless", action="store_true", help="Run browser in headless mode")
-    args = parser.parse_args()
-
     smtp_details = {
         'server': os.getenv('SMTP_SERVER'),
         'port': int(os.getenv('SMTP_PORT')),
